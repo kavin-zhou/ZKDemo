@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ZKXibViewController">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7OG-ae-oNI">
+                    <rect key="frame" x="111" y="80" width="153" height="30"/>
+                    <color key="backgroundColor" red="0.75450922819999999" green="0.68379884530000001" blue="0.042518723639999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="DIb-lW-4OG"/>
+                        <constraint firstAttribute="width" constant="153" id="dA4-UT-Rgn"/>
+                    </constraints>
+                    <state key="normal" title="我是按钮"/>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我是标签" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mi0-Fg-89L">
+                    <rect key="frame" x="90" y="211" width="195" height="21"/>
+                    <color key="backgroundColor" red="1" green="0.8816339835" blue="0.76594781150000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="195" id="TWv-DG-ZuL"/>
+                        <constraint firstAttribute="height" constant="21" id="ePn-UZ-Mvl"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="Mi0-Fg-89L" firstAttribute="top" secondItem="7OG-ae-oNI" secondAttribute="bottom" constant="101" id="A8l-5B-9Wa"/>
+                <constraint firstItem="Mi0-Fg-89L" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="ZPa-1t-52P"/>
+                <constraint firstItem="7OG-ae-oNI" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="80" id="hhF-Uc-rim"/>
+                <constraint firstItem="7OG-ae-oNI" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="kob-iR-Am5"/>
+            </constraints>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+            <point key="canvasLocation" x="340.5" y="374.5"/>
+        </view>
+    </objects>
+</document>

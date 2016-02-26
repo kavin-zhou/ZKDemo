@@ -12,8 +12,6 @@
 
 @interface ZKMainViewController ()
 
-
-
 @end
 
 @implementation ZKMainViewController
@@ -23,13 +21,16 @@
     [super viewDidLoad];
 }
 
-- (IBAction)localBtnClick {
+- (IBAction)localBtnClick
+{
     ZKLocalViewController *localVC = [[ZKLocalViewController alloc] init];
     [self.navigationController pushViewController:localVC animated:YES];
 }
 
-- (IBAction)pinchBtnClick {
+- (IBAction)pinchBtnClick
+{
     ZKPinchViewController *pinchVC = [[ZKPinchViewController alloc] init];
     [self.navigationController pushViewController:pinchVC animated:YES];
 }
+
 @end

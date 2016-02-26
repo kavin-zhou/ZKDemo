@@ -233,7 +233,7 @@ typedef NS_ENUM(NSUInteger, XWDragCellCollectionViewScrollDirection) {
         [currentSection insertObject:orignalSection[_originalIndexPath.item] atIndex:_moveIndexPath.item];
         [orignalSection removeObject:orignalSection[_originalIndexPath.item]];
     }
-    //NSLog(@"交换了%zd--%zd 和 %zd--%zd", _originalIndexPath.section, _originalIndexPath.item, _moveIndexPath.section, _moveIndexPath.item);
+    //NSLog(ZKLocalizedString(@"交换了%zd--%zd 和 %zd--%zd"), _originalIndexPath.section, _originalIndexPath.item, _moveIndexPath.section, _moveIndexPath.item);
     //将重排好的数据传递给外部
     if ([self.delegate respondsToSelector:@selector(dragCellCollectionView:newDataArrayAfterMove:)]) {
         [self.delegate dragCellCollectionView:self newDataArrayAfterMove:temp.copy];
