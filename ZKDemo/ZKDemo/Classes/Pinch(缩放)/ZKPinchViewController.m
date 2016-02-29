@@ -14,63 +14,53 @@
 #import "ZKModel.h"
 #import "XWDragCellCollectionView.h"
 
-@interface ZKPinchViewController () <XWDragCellCollectionViewDataSource, XWDragCellCollectionViewDelegate> {
-    CGPoint _finalContentOffset;
-}
+@interface ZKPinchViewController () <XWDragCellCollectionViewDataSource, XWDragCellCollectionViewDelegate>
 
+@property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) XWDragCellCollectionView *collectionView;
-@property (nonatomic, assign) CGSize finalItemSize;
 @property (nonatomic, strong) NSArray *dataSource;
 
 @end
 
-@implementation ZKPinchViewController
-
 static NSString *const cellID = @"ZKCollectionViewCell";
+
+@implementation ZKPinchViewController
 
 - (void)viewDidLoad
 {
-    [self setupCollectionView];
+    [self setupUI];
 }
 
-- (void)setupCollectionView
+- (void)setupUI
 {
-    self.finalItemSize = CGSizeMake(30.f, 30.f);
+    self.scrollView = ({
+        self.scrollView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        [self.view addSubview:_scrollView];
+        _scrollView.contentSize = CGSizeMake(ScreenWidth, ScreenHeight);
+        _scrollView.minimumZoomScale = 1.f;
+        _scrollView.maximumZoomScale = 8.f;
+        _scrollView.delegate = self;
+//        _scrollView.scrollEnabled = NO;
+        _scrollView;
+    });
     
     self.collectionView = ({
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-        flowLayout.sectionInset = UIEdgeInsetsMake(0, 10, 0, 10);
-        flowLayout.itemSize = _finalItemSize;
+        flowLayout.sectionInset = UIEdgeInsetsMake(0, 5, 64, 5);
+        flowLayout.minimumInteritemSpacing = flowLayout.minimumLineSpacing = 5.f;
+        flowLayout.itemSize = CGSizeMake(30.f, 30.f);
         
-        self.collectionView = [[XWDragCellCollectionView alloc] initWithFrame:[UIScreen mainScreen].bounds collectionViewLayout:flowLayout];
+        self.collectionView = [[XWDragCellCollectionView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight) collectionViewLayout:flowLayout];
         _collectionView.backgroundColor = [UIColor whiteColor];
         [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([ZKCell class]) bundle:nil] forCellWithReuseIdentifier:cellID];
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
-        [self.view addSubview:_collectionView];
+        [_scrollView addSubview:_collectionView];
+        
+        _collectionView.alwaysBounceHorizontal = YES;
+        _collectionView.alwaysBounceVertical = YES;
         _collectionView;
     });
-    
-    UIPinchGestureRecognizer *pinchGestureRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchGesture:)];
-    for (UIGestureRecognizer *recognizer in  self.collectionView.gestureRecognizers){
-        if ([recognizer isKindOfClass:[pinchGestureRecognizer class]]) {
-            [recognizer requireGestureRecognizerToFail:pinchGestureRecognizer];   //此处使用是为了确保各缩放手势保持独立，不会混淆
-        }
-    }
-    [self.collectionView addGestureRecognizer:pinchGestureRecognizer];
-    
-}
-
-- (void)handlePinchGesture:(UIPinchGestureRecognizer *)recognizer
-{
-    UICollectionViewFlowLayout *layout =  (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
-    layout.itemSize =  CGSizeMake(_finalItemSize.width * recognizer.scale, _finalItemSize.height * recognizer.scale);
-    [layout invalidateLayout];   //废弃旧布局，更新新布局
-    
-    UIGestureRecognizerState state = recognizer.state;
-    if (state == UIGestureRecognizerStateEnded || state == UIGestureRecognizerStateCancelled) {
-        self.finalItemSize = CGSizeMake(layout.itemSize.width, layout.itemSize.height);
-    }
 }
 
 // <UICollectionViewDataSource>
@@ -110,6 +100,38 @@ static NSString *const cellID = @"ZKCollectionViewCell";
 - (void)dragCellCollectionView:(XWDragCellCollectionView *)collectionView newDataArrayAfterMove:(NSArray *)newDataArray
 {
     self.dataSource = newDataArray;
+}
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+    return _collectionView;
+}
+
+#pragma mark - solve the fuzzy view when zoom scrollView
+// 找到需要重新排版的视图
+-(NSArray*)findAllViewsToScale:(UIView*)parentView {
+    NSMutableArray* views = [[NSMutableArray alloc] init];
+    for(id view in parentView.subviews) {
+        
+        // You will want to check for UITextView here. I only needed labels.
+        if([view isKindOfClass:[UILabel class]]) {
+            [views addObject:view];
+        } else if ([view respondsToSelector:@selector(subviews)]) {
+            [views addObjectsFromArray:[self findAllViewsToScale:view]];
+        }
+    }
+    return views;
+}
+
+// 根据scale排版在缩放完毕时
+- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(CGFloat)scale
+{
+    CGFloat contentScale = scale * [UIScreen mainScreen].scale; // Handle retina
+    
+    NSArray* labels = [self findAllViewsToScale:self.collectionView];
+    for(UIView* view in labels) {
+        view.contentScaleFactor = contentScale;
+    }
 }
 
 @end
