@@ -8,6 +8,8 @@
 
 #define ScreenWidth [UIScreen mainScreen].bounds.size.width
 #define ScreenHeight [UIScreen mainScreen].bounds.size.height
+#define ItemNumPerRow (int)floorf((ScreenWidth-margin)/(itemW+margin))
+#define contentH (ceil((float)itemTotalNum/ItemNumPerRow)*(itemW+margin)+margin)
 
 #import "ZKPinchViewController.h"
 #import "ZKCell.h"
@@ -23,42 +25,49 @@
 @end
 
 static NSString *const cellID = @"ZKCollectionViewCell";
+static NSInteger const itemTotalNum = 150;
+static CGFloat const margin = 5.f;
+static CGFloat const itemW = 30.f;
 
 @implementation ZKPinchViewController
 
 - (void)viewDidLoad
 {
-    [self setupUI];
+    [self p_setupUI];
 }
 
-- (void)setupUI
+- (void)p_setupUI
 {
     self.scrollView = ({
         self.scrollView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].bounds];
         [self.view addSubview:_scrollView];
-        _scrollView.contentSize = CGSizeMake(ScreenWidth, ScreenHeight);
+        _scrollView.backgroundColor = [UIColor lightGrayColor];
+        _scrollView.contentSize = CGSizeMake(ScreenWidth, contentH);
         _scrollView.minimumZoomScale = 1.f;
         _scrollView.maximumZoomScale = 8.f;
+        _scrollView.alwaysBounceHorizontal = YES;
+        _scrollView.alwaysBounceVertical = YES;
+        _scrollView.showsVerticalScrollIndicator = NO;
+        _scrollView.showsHorizontalScrollIndicator = NO;
         _scrollView.delegate = self;
-//        _scrollView.scrollEnabled = NO;
         _scrollView;
     });
     
     self.collectionView = ({
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-        flowLayout.sectionInset = UIEdgeInsetsMake(0, 5, 64, 5);
-        flowLayout.minimumInteritemSpacing = flowLayout.minimumLineSpacing = 5.f;
-        flowLayout.itemSize = CGSizeMake(30.f, 30.f);
+        flowLayout.minimumInteritemSpacing = flowLayout.minimumLineSpacing = margin;
+        flowLayout.itemSize = CGSizeMake(itemW, itemW);
         
-        self.collectionView = [[XWDragCellCollectionView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight) collectionViewLayout:flowLayout];
-        _collectionView.backgroundColor = [UIColor whiteColor];
+        self.collectionView = [[XWDragCellCollectionView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, contentH) collectionViewLayout:flowLayout];
+        _collectionView.contentInset = UIEdgeInsetsMake(margin, margin, 64, margin);
+        _collectionView.backgroundColor = [UIColor clearColor];
+//        _collectionView.shakeWhenMoveing = NO; //关闭抖动动画
         [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([ZKCell class]) bundle:nil] forCellWithReuseIdentifier:cellID];
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
         [_scrollView addSubview:_collectionView];
         
-        _collectionView.alwaysBounceHorizontal = YES;
-        _collectionView.alwaysBounceVertical = YES;
+        _collectionView.scrollEnabled = NO;
         _collectionView;
     });
 }
@@ -81,7 +90,7 @@ static NSString *const cellID = @"ZKCollectionViewCell";
 {
     if (!_dataSource) {
         NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-        for (int i = 0; i < 200; i ++) {
+        for (int i = 0; i < itemTotalNum; i ++) {
             ZKModel *model = [[ZKModel alloc] init];
             model.title = [NSString stringWithFormat:@"%d",i];
             [tempArray addObject:model];
@@ -102,36 +111,36 @@ static NSString *const cellID = @"ZKCollectionViewCell";
     self.dataSource = newDataArray;
 }
 
+// <UIScrollViewDelegate>
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
 {
     return _collectionView;
 }
 
 #pragma mark - solve the fuzzy view when zoom scrollView
-// 找到需要重新排版的视图
--(NSArray*)findAllViewsToScale:(UIView*)parentView {
-    NSMutableArray* views = [[NSMutableArray alloc] init];
-    for(id view in parentView.subviews) {
-        
-        // You will want to check for UITextView here. I only needed labels.
-        if([view isKindOfClass:[UILabel class]]) {
-            [views addObject:view];
-        } else if ([view respondsToSelector:@selector(subviews)]) {
-            [views addObjectsFromArray:[self findAllViewsToScale:view]];
-        }
-    }
-    return views;
-}
-
 // 根据scale排版在缩放完毕时
 - (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(CGFloat)scale
 {
     CGFloat contentScale = scale * [UIScreen mainScreen].scale; // Handle retina
     
-    NSArray* labels = [self findAllViewsToScale:self.collectionView];
+    NSArray* labels = [self p_findAllViewsToScale:self.collectionView];
     for(UIView* view in labels) {
         view.contentScaleFactor = contentScale;
     }
+}
+// 找到需要重新排版的视图
+-(NSArray*)p_findAllViewsToScale:(UIView*)parentView {
+    NSMutableArray* views = [[NSMutableArray alloc] init];
+    for(id view in parentView.subviews) {
+        
+        // 有textView的话也要判断
+        if([view isKindOfClass:[UILabel class]]) {
+            [views addObject:view];
+        } else if ([view respondsToSelector:@selector(subviews)]) {
+            [views addObjectsFromArray:[self p_findAllViewsToScale:view]];
+        }
+    }
+    return views;
 }
 
 @end
