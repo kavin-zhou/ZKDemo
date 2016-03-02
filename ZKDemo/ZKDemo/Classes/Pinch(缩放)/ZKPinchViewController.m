@@ -5,9 +5,6 @@
 //  Created by ZK on 16/2/26.
 //  Copyright © 2016年 ZK. All rights reserved.
 //
-
-#define ScreenWidth [UIScreen mainScreen].bounds.size.width
-#define ScreenHeight [UIScreen mainScreen].bounds.size.height
 #define ItemNumPerRow (int)floorf((ScreenWidth-margin)/(itemW+margin))
 #define contentH (ceil((float)itemTotalNum/ItemNumPerRow)*(itemW+margin)+margin)
 

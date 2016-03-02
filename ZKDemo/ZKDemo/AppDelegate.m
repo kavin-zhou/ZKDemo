@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import "ZKMainViewController.h"
-#import "ZKConfig.h"
 #import "NSBundle+Language.h"
 
 @interface AppDelegate ()

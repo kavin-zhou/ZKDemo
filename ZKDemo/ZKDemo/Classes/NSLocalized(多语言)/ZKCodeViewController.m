@@ -7,7 +7,6 @@
 //
 
 #import "ZKCodeViewController.h"
-#import "ZKConfig.h"
 
 @interface ZKCodeViewController ()
 

@@ -9,7 +9,6 @@
 #import "ZKLocalViewController.h"
 #import "ZKXibViewController.h"
 #import "ZKCodeViewController.h"
-#import "ZKConfig.h"
 #import "NSBundle+Language.h"
 #import "AppDelegate.h"
 #import "ZKMainViewController.h"

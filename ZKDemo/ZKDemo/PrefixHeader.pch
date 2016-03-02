@@ -1,0 +1,15 @@
+//
+//  PrefixHeader.pch
+//  ZKDemo
+//
+//  Created by ZK on 16/3/2.
+//  Copyright © 2016年 ZK. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#import "ZKConfig.h"
+
+
+#endif /* PrefixHeader_pch */
