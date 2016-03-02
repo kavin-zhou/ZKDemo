@@ -21,6 +21,7 @@
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) XWDragCellCollectionView *collectionView;
 @property (nonatomic, strong) NSArray *dataSource;
+@property (nonatomic, assign) BOOL allowedPinch;  //是否允许缩放
 
 @end
 
@@ -33,6 +34,7 @@ static CGFloat const itemW = 30.f;
 
 - (void)viewDidLoad
 {
+    self.allowedPinch = YES;
     [self p_setupUI];
 }
 
@@ -45,11 +47,12 @@ static CGFloat const itemW = 30.f;
         _scrollView.contentSize = CGSizeMake(ScreenWidth, contentH);
         _scrollView.minimumZoomScale = 1.f;
         _scrollView.maximumZoomScale = 8.f;
-        _scrollView.alwaysBounceHorizontal = YES;
-        _scrollView.alwaysBounceVertical = YES;
         _scrollView.showsVerticalScrollIndicator = NO;
         _scrollView.showsHorizontalScrollIndicator = NO;
         _scrollView.delegate = self;
+        _scrollView.alwaysBounceHorizontal = self.allowedPinch?YES:NO;
+        _scrollView.alwaysBounceVertical = self.allowedPinch?YES:NO;
+        _scrollView.bounces = self.allowedPinch?YES:NO;
         _scrollView;
     });
     
@@ -66,7 +69,6 @@ static CGFloat const itemW = 30.f;
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
         [_scrollView addSubview:_collectionView];
-        
         _collectionView.scrollEnabled = NO;
         _collectionView;
     });
@@ -114,7 +116,7 @@ static CGFloat const itemW = 30.f;
 // <UIScrollViewDelegate>
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
 {
-    return _collectionView;
+    return self.allowedPinch ? _collectionView : nil;
 }
 
 #pragma mark - solve the fuzzy view when zoom scrollView
