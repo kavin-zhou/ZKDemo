@@ -11,21 +11,21 @@
 #import "ZKPinchViewController.h"
 #import "ZKCell.h"
 #import "ZKModel.h"
-#import "XWDragCellCollectionView.h"
+#import "ZKDragCollectionView.h"
 
-@interface ZKPinchViewController () <XWDragCellCollectionViewDataSource, XWDragCellCollectionViewDelegate>
+@interface ZKPinchViewController () <ZKDragCollectionViewDelegate, ZKDragCollectionViewDataSource>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
-@property (nonatomic, strong) XWDragCellCollectionView *collectionView;
+@property (nonatomic, strong) ZKDragCollectionView *collectionView;
 @property (nonatomic, strong) NSArray *dataSource;
 @property (nonatomic, assign) BOOL allowedPinch;  //是否允许缩放
 
 @end
 
 static NSString *const cellID = @"ZKCollectionViewCell";
-static NSInteger const itemTotalNum = 150;
+static NSInteger const itemTotalNum = 250;
 static CGFloat const margin = 5.f;
-static CGFloat const itemW = 30.f;
+static CGFloat const itemW = 50.f;
 
 @implementation ZKPinchViewController
 
@@ -43,7 +43,7 @@ static CGFloat const itemW = 30.f;
         _scrollView.backgroundColor = [UIColor lightGrayColor];
         _scrollView.contentSize = CGSizeMake(ScreenWidth, contentH);
         _scrollView.minimumZoomScale = 1.f;
-        _scrollView.maximumZoomScale = 8.f;
+        _scrollView.maximumZoomScale = 2.f;
         _scrollView.showsVerticalScrollIndicator = NO;
         _scrollView.showsHorizontalScrollIndicator = NO;
         _scrollView.delegate = self;
@@ -58,7 +58,7 @@ static CGFloat const itemW = 30.f;
         flowLayout.minimumInteritemSpacing = flowLayout.minimumLineSpacing = margin;
         flowLayout.itemSize = CGSizeMake(itemW, itemW);
         
-        self.collectionView = [[XWDragCellCollectionView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, contentH) collectionViewLayout:flowLayout];
+        self.collectionView = [[ZKDragCollectionView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, contentH) collectionViewLayout:flowLayout];
         _collectionView.contentInset = UIEdgeInsetsMake(margin, margin, 64, margin);
         _collectionView.backgroundColor = [UIColor clearColor];
 //        _collectionView.shakeWhenMoveing = NO; //关闭抖动动画
@@ -99,15 +99,15 @@ static CGFloat const itemW = 30.f;
     return _dataSource;
 }
 
-// <XWDragCellCollectionViewDataSource>
-- (NSArray *)dataSourceArrayOfCollectionView:(XWDragCellCollectionView *)collectionView
+// <ZKDragCollectionViewDataSource && ZKDragCollectionViewDelegate>
+- (NSArray *)dragCollectionViewOriginalDataSource:(ZKDragCollectionView *)dragCollectionView
 {
     return _dataSource;
 }
 
-- (void)dragCellCollectionView:(XWDragCellCollectionView *)collectionView newDataArrayAfterMove:(NSArray *)newDataArray
+- (void)dragCollectionView:(ZKDragCollectionView *)dragCollectionView newDataSourceAfterMove:(NSArray *)newDataSource
 {
-    self.dataSource = newDataArray;
+    self.dataSource = newDataSource;
 }
 
 // <UIScrollViewDelegate>

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		581F4E1B1CF8233400CFF73D /* ZKDragCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 581F4E1A1CF8233400CFF73D /* ZKDragCollectionView.m */; };
 		58F9CF2C1C802533009E1566 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F9CF2B1C802533009E1566 /* main.m */; };
 		58F9CF2F1C802533009E1566 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F9CF2E1C802533009E1566 /* AppDelegate.m */; };
 		58F9CF371C802533009E1566 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 58F9CF361C802533009E1566 /* Assets.xcassets */; };
@@ -18,7 +19,6 @@
 		58F9CF6B1C802775009E1566 /* ZKCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F9CF691C802774009E1566 /* ZKCell.m */; };
 		58F9CF6C1C802775009E1566 /* ZKCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 58F9CF6A1C802774009E1566 /* ZKCell.xib */; };
 		58F9CF6F1C802782009E1566 /* ZKModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F9CF6E1C802782009E1566 /* ZKModel.m */; };
-		58F9CF721C8027B3009E1566 /* XWDragCellCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F9CF711C8027B3009E1566 /* XWDragCellCollectionView.m */; };
 		58F9CF761C802B37009E1566 /* ZKLocalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F9CF741C802B37009E1566 /* ZKLocalViewController.m */; };
 		58F9CF7B1C802EFB009E1566 /* ZKXibViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F9CF791C802EFB009E1566 /* ZKXibViewController.m */; };
 		58F9CF7F1C802F08009E1566 /* ZKCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F9CF7E1C802F08009E1566 /* ZKCodeViewController.m */; };
@@ -48,6 +48,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		581F4E191CF8233400CFF73D /* ZKDragCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZKDragCollectionView.h; sourceTree = "<group>"; };
+		581F4E1A1CF8233400CFF73D /* ZKDragCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZKDragCollectionView.m; sourceTree = "<group>"; };
 		5830E01B1C86D2680074744F /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		58F9CF271C802533009E1566 /* ZKDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZKDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		58F9CF2B1C802533009E1566 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -71,8 +73,6 @@
 		58F9CF6A1C802774009E1566 /* ZKCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZKCell.xib; sourceTree = "<group>"; };
 		58F9CF6D1C802782009E1566 /* ZKModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZKModel.h; sourceTree = "<group>"; };
 		58F9CF6E1C802782009E1566 /* ZKModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZKModel.m; sourceTree = "<group>"; };
-		58F9CF701C8027B3009E1566 /* XWDragCellCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XWDragCellCollectionView.h; sourceTree = "<group>"; };
-		58F9CF711C8027B3009E1566 /* XWDragCellCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XWDragCellCollectionView.m; sourceTree = "<group>"; };
 		58F9CF731C802B37009E1566 /* ZKLocalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZKLocalViewController.h; sourceTree = "<group>"; };
 		58F9CF741C802B37009E1566 /* ZKLocalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZKLocalViewController.m; sourceTree = "<group>"; };
 		58F9CF781C802EFB009E1566 /* ZKXibViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZKXibViewController.h; sourceTree = "<group>"; };
@@ -224,8 +224,8 @@
 				58F9CF6A1C802774009E1566 /* ZKCell.xib */,
 				58F9CF6D1C802782009E1566 /* ZKModel.h */,
 				58F9CF6E1C802782009E1566 /* ZKModel.m */,
-				58F9CF701C8027B3009E1566 /* XWDragCellCollectionView.h */,
-				58F9CF711C8027B3009E1566 /* XWDragCellCollectionView.m */,
+				581F4E191CF8233400CFF73D /* ZKDragCollectionView.h */,
+				581F4E1A1CF8233400CFF73D /* ZKDragCollectionView.m */,
 			);
 			path = "Pinch(缩放)";
 			sourceTree = "<group>";
@@ -393,9 +393,9 @@
 				58F9CF2F1C802533009E1566 /* AppDelegate.m in Sources */,
 				58F9CF2C1C802533009E1566 /* main.m in Sources */,
 				58F9CF7F1C802F08009E1566 /* ZKCodeViewController.m in Sources */,
+				581F4E1B1CF8233400CFF73D /* ZKDragCollectionView.m in Sources */,
 				58F9CF6B1C802775009E1566 /* ZKCell.m in Sources */,
 				58F9CF601C8025D6009E1566 /* ZKMainViewController.m in Sources */,
-				58F9CF721C8027B3009E1566 /* XWDragCellCollectionView.m in Sources */,
 				58F9CF8F1C803338009E1566 /* NSBundle+Language.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
