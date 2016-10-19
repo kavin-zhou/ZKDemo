@@ -316,6 +316,7 @@
 				TargetAttributes = {
 					58F9CF261C802533009E1566 = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = 9S49W485R2;
 					};
 					58F9CF3F1C802533009E1566 = {
 						CreatedOnToolsVersion = 7.2;
@@ -571,12 +572,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 9S49W485R2;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/ZKDemo/PrefixHeader.pch";
 				INFOPLIST_FILE = ZKDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.hoolai.ZKDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zk.ZKDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -585,12 +587,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 9S49W485R2;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/ZKDemo/PrefixHeader.pch";
 				INFOPLIST_FILE = ZKDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.hoolai.ZKDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zk.ZKDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
